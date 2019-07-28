@@ -77,16 +77,6 @@ store.subscribe(() => {
 	const state = store.getState();
 	const count = state.calc.present;
 	const stack = document.getElementById("stack")
-
-	document.querySelectorAll("[data-operators]").forEach(function(btn) {
-		if ( count.length < 2 ){ btn.setAttribute("disabled", true ) } 
-			else { btn.removeAttribute("disabled", false) }
-	})
-	document.querySelectorAll("[data-num]").forEach(function(btn) {
-		if ( count.length > 1 ){ btn.setAttribute("disabled", true ) } 
-			else { btn.removeAttribute("disabled", false) }
-	})
-
 	stack.innerHTML = count;
 });
 
