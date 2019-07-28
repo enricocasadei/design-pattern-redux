@@ -1,0 +1,19 @@
+{
+     "name": "app",
+     "version": "0.0.1",
+     "description": "enel",
+     "dependencies": {
+          "express": "*"
+     },
+     "engine": "node >=0.6.x",
+     "scripts": {
+          "start": "node server.js"
+     },
+     "main": "server.js",
+     "author": "app",
+     "license": "app",
+     "bugs": {
+          "url": ""
+     },
+     "homepage": "/"
+}

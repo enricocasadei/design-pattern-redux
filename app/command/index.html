@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Command</title>
+<script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  <link rel="stylesheet" type="text/css" href="uikit.min.css">
+  <style type="text/css">
+  	#stack span {
+	  display: block;
+	}
+  </style>
+</head>
+<body>
+
+<main class="uk-section">
+<div class="uk-container uk-container-center">
+<div class="uk-card">
+<div class="uk-grid-small uk-child-width-expand@s uk-text-center" uk-grid>
+
+
+<div>
+<div class="uk-card uk-card-default uk-card-body" id="stack"></div>
+</div>
+
+<div>
+	
+<div class="uk-card uk-card-default uk-card-body">
+<div class="uk-grid" uk-grid>
+<div><button class="uk-button" id="btn-0">0</button></div>
+<div><button class="uk-button" id="btn-1">1</button></div>
+<div><button class="uk-button" id="btn-2">2</button></div>
+<div><button class="uk-button" id="btn-3">3</button></div>
+<div><button class="uk-button" id="btn-4">4</button></div>
+<div><button class="uk-button" id="btn-5">5</button></div>
+<div><button class="uk-button" id="btn-6">6</button></div>
+<div><button class="uk-button" id="btn-7">7</button></div>
+<div><button class="uk-button" id="btn-8">8</button></div>
+<div><button class="uk-button" id="btn-9">9</button></div>
+</div>  
+</div>
+
+<div class="uk-card uk-card-default uk-card-body">
+<div class="uk-grid" uk-grid>
+<div><button class="uk-button" id="btn-add">+</button></div>
+<div><button class="uk-button" id="btn-substract">-</button></div>
+<div><button class="uk-button" id="btn-multiply">*</button></div>
+<div><button class="uk-button" id="btn-divide">/</button></div>
+</div>  
+</div>
+
+
+<div class="uk-card uk-card-default uk-card-body">
+<div class="uk-grid" uk-grid>
+<div><button class="uk-button" id="btn-clear">Clear</button></div>
+<div><button class="uk-button" id="btn-undo">Undo</button></div>
+<div><button class="uk-button" id="btn-redo">Redo</button></div>
+</div>  
+</div>
+
+
+
+</div>
+
+
+</div>
+</div>
+</div>
+</main>
+
+<script type="text/javascript" src="commander.js"></script>
+<script type="text/javascript">
+
+function push(n) {
+  $('#stack').append(
+    $('<span>', { text: String(n) })
+  );
+};
+
+function pop() {
+  var value = $('#stack').find('span').first().remove().text();
+  return parseInt(value) || 0;
+}
+
+function reset() {
+  $('#stack').empty();
+}
+
+Commander.addCommand('0', {
+  execute: function() { push(0); },
+  undo: function() { pop(); }
+});
+
+Commander.addCommand('1', {
+  execute: function() { push(1); },
+  undo: function() { pop(); }
+});
+
+Commander.addCommand('2', {
+  execute: function() { push(2); },
+  undo: function() { pop(); }
+});
+
+Commander.addCommand('3', {
+  execute: function() { push(3); },
+  undo: function() { pop(); }
+});
+
+Commander.addCommand('4', {
+  execute: function() { push(4); },
+  undo: function() { pop(); }
+});
+
+Commander.addCommand('5', {
+  execute: function() { push(5); },
+  undo: function() { pop(); }
+});
+
+Commander.addCommand('6', {
+  execute: function() { push(6); },
+  undo: function() { pop(); }
+});
+
+Commander.addCommand('7', {
+  execute: function() { push(7); },
+  undo: function() { pop(); }
+});
+
+Commander.addCommand('8', {
+  execute: function() { push(8); },
+  undo: function() { pop(); }
+});
+
+Commander.addCommand('9', {
+  execute: function() { push(9); },
+  undo: function() { pop(); }
+});
+
+Commander.addCommand('+', (function() {
+  var prev = [];
+
+  return {
+    execute: function() {
+      var n1 = pop(), n2 = pop();
+      prev.push(n1);
+      prev.push(n2);
+      push(n1 + n2);
+    },
+    undo: function() {
+      pop();
+      push(prev.pop());
+      push(prev.pop());
+    }
+  };
+})());
+
+Commander.addCommand('-', (function() {
+  var prev = [];
+
+  return {
+    execute: function() {
+      var n1 = pop(), n2 = pop();
+      prev.push(n1);
+      prev.push(n2);
+
+      push(n1 - n2);
+    },
+    undo: function() {
+      pop();
+      push(prev.pop());
+      push(prev.pop());
+    }
+  };
+})());
+
+Commander.addCommand('*', (function() {
+  var prev = [];
+
+  return {
+    execute: function() {
+      var n1 = pop(), n2 = pop();
+      prev.push(n1);
+      prev.push(n2);
+
+      push(n1 * n2);
+    },
+    undo: function() {
+      pop();
+      push(prev.pop());
+      push(prev.pop());
+    }
+  };
+})());
+
+Commander.addCommand('/', (function() {
+  var prev = [];
+
+  return {
+    execute: function() {
+      var n1 = pop(), n2 = pop();
+      prev.push(n1);
+      prev.push(n2);
+
+      push(n1 / n2);
+    },
+    undo: function() {
+      pop();
+      push(prev.pop());
+      push(prev.pop());
+    }
+  };
+})());
+
+
+$(function(){
+$("#btn-0").click(function() { Commander.execute("0"); });
+$("#btn-1").click(function() { Commander.execute("1"); });
+$("#btn-2").click(function() { Commander.execute("2"); });
+$("#btn-3").click(function() { Commander.execute("3"); });
+$("#btn-4").click(function() { Commander.execute("4"); });
+$("#btn-5").click(function() { Commander.execute("5"); });
+$("#btn-6").click(function() { Commander.execute("6"); });
+$("#btn-7").click(function() { Commander.execute("7"); });
+$("#btn-8").click(function() { Commander.execute("8"); });
+$("#btn-9").click(function() { Commander.execute("9"); });
+
+$("#btn-add").click(function() { Commander.execute("+"); });
+$("#btn-substract").click(function() { Commander.execute("-"); });
+$("#btn-multiply").click(function() { Commander.execute("*"); });
+$("#btn-divide").click(function() { Commander.execute("/"); });
+
+$("#btn-clear").click(function() {
+  reset();
+  Commander.restart();
+});
+
+$("#btn-undo").click(function() {
+  Commander.undo();
+});
+
+$("#btn-redo").click(function() {
+  Commander.redo();
+});
+
+})
+
+</script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Command + Dispatcher</title>
+<link rel="stylesheet" type="text/css" href="css/uikit.min.css">
+</head>
+<body>
+<main class="uk-section">
+<div class="uk-container uk-container-center">
+<div class="uk-card">
+<div class="uk-grid-small uk-child-width-expand@s uk-text-center" uk-grid>
+
+
+<div>
+<div class="uk-card uk-card-default uk-card-body" id="stack"></div>
+</div>
+
+<div>
+	
+<div class="uk-card uk-card-default uk-card-body">
+<div class="uk-grid" uk-grid>
+<div><button class="uk-button" data-num="0">0</button></div>
+<div><button class="uk-button" data-num="1">1</button></div>
+<div><button class="uk-button" data-num="2">2</button></div>
+<div><button class="uk-button" data-num="3">3</button></div>
+<div><button class="uk-button" data-num="4">4</button></div>
+<div><button class="uk-button" data-num="5">5</button></div>
+<div><button class="uk-button" data-num="6">6</button></div>
+<div><button class="uk-button" data-num="7">7</button></div>
+<div><button class="uk-button" data-num="8">8</button></div>
+<div><button class="uk-button" data-num="9">9</button></div>
+</div>  
+</div>
+
+<div class="uk-card uk-card-default uk-card-body">
+<div class="uk-grid" uk-grid>
+<div><button class="uk-button" data-operators="+">+</button></div>
+<div><button class="uk-button" data-operators="-">-</button></div>
+<div><button class="uk-button" data-operators="*">*</button></div>
+<div><button class="uk-button" data-operators="/">/</button></div>
+</div>  
+</div>
+
+
+<div class="uk-card uk-card-default uk-card-body">
+<div class="uk-grid" uk-grid>
+<div><button class="uk-button" data-util="RESET">Clear</button></div>
+<div><button class="uk-button" data-util="UNDO">Undo</button></div>
+<div><button class="uk-button" data-util="REDO">Redo</button></div>
+</div>  
+</div>
+
+
+
+</div>
+
+
+</div>
+</div>
+</div>
+</main>
+
+<script type="text/javascript" src="command.js"></script>
+<script type="text/javascript" src="dispatcher.js"></script>
+<script type="text/javascript" src="middleware.js"></script>
+
+<script type="text/javascript">
+
+document.querySelectorAll("[data-num]").forEach(function(btn) {
+    btn.addEventListener("click", ()=>{ dispatcher.dispatch('[Number] to stack', btn.getAttribute('data-num')); })
+});
+
+document.querySelectorAll("[data-operators]").forEach(function(btn) {
+    btn.addEventListener("click", ()=>{ dispatcher.dispatch('[Operators] calc', btn.getAttribute('data-operators')); })
+});
+
+document.querySelectorAll("[data-util]").forEach(function(btn) {
+    btn.addEventListener("click", ()=>{ dispatcher.dispatch(btn.getAttribute('data-util')); })
+});
+
+</script>
+</body>
+</html>
